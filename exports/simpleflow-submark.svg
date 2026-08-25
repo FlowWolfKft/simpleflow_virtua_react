@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Simple Flow négyzetspirál jel</title>
+  <defs>
+    <linearGradient id="flow-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c95891"/>
+      <stop offset="0.45" stop-color="#9b7dac"/>
+      <stop offset="1" stop-color="#3f608f"/>
+    </linearGradient>
+  </defs>
+  <path d="M48 28H228V208H28V48H208V188H48V68H188V168H68V88H168V148H88V108H148V128H116" fill="none" stroke="url(#flow-gradient)" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 210" role="img" aria-labelledby="title">
+  <title id="title">Simple Flow egyszínű logó</title>
+  <g transform="translate(20 12) scale(.75)" fill="none" stroke="#2a3937" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"><path d="M48 28H228V208H28V48H208V188H48V68H188V168H68V88H168V148H88V108H148V128H116"/></g>
+  <text x="230" y="126" fill="#2a3937" font-family="Plus Jakarta Sans,Arial,sans-serif" font-size="68" font-weight="500" letter-spacing="-2.8">Simple Flow</text>
+</svg>
