@@ -101,8 +101,16 @@ p {
   margin: 0 0 1.2em;
 }
 .section-heading {
-  max-width: 720px;
+  width: 100%;
+  max-width: none;
   margin-bottom: 48px;
+}
+
+.section-lead {
+  max-width: 760px;
+  margin: 20px 0 0;
+  color: var(--color-muted);
+  font-size: 1.1rem;
 }
 .section-heading-center {
   margin-inline: auto;
@@ -372,11 +380,17 @@ p {
   border-left: 0;
 }
 .benefit h3 {
-  margin: 20px 0 10px;
+  margin: 2rem 0 10px;
+  text-align: center;
 }
 .benefit p {
   margin: 0;
   color: var(--color-muted);
+}
+.benefit .icon-box {
+  width: 52px;
+  height: 52px;
+  margin-inline: auto;
 }
 
 .services-section {
@@ -405,7 +419,11 @@ p {
   box-shadow: var(--shadow-hover);
 }
 .service-card h3 {
-  margin: 22px 0 18px;
+  margin: 2rem 0 18px;
+  text-align: center;
+}
+.service-card .icon-box {
+  align-self: center;
 }
 .service-card ul,
 .package-card ul {
@@ -484,9 +502,19 @@ p {
   font-family: var(--font-display);
   font-size: 2rem;
 }
+.package-card h3,
+.package-card > .eyebrow,
+.price {
+  text-align: center;
+}
 .package-card > p:not(.eyebrow, .price) {
   min-height: 80px;
   color: var(--color-muted);
+}
+.package-card > .button {
+  display: flex;
+  width: fit-content;
+  margin-inline: auto;
 }
 .price {
   margin: 26px 0 20px;
@@ -713,7 +741,37 @@ p {
   font-size: 0.78rem;
   text-align: center;
 }
+.back-to-top {
+  position: fixed;
+  z-index: 40;
+  right: 24px;
+  bottom: 72px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 2px solid var(--color-primary-dark);
+  border-radius: 50%;
+  background: rgba(245, 240, 231, 0.9);
+  color: var(--color-primary-dark);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(42, 57, 55, 0.12);
+  backdrop-filter: blur(10px);
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
 
+.back-to-top:hover {
+  color: #fff;
+  background: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(42, 57, 55, 0.16);
+}
 .legal-page {
   min-height: 100vh;
   padding: 72px 0;
@@ -813,7 +871,7 @@ p {
 
 @media (max-width: 740px) {
   .container {
-    width: min(100% - 28px, var(--container));
+    width: min(100% - 32px, var(--container));
   }
   .section {
     padding-block: 64px;
@@ -845,9 +903,11 @@ p {
     grid-template-columns: 1fr;
   }
   .benefit {
-    padding-inline: 0;
     border-top: 1px solid var(--color-border);
     border-left: 0;
+  }
+  .benefit h3 {
+    text-align: left;
   }
   .benefit:first-child {
     border-top: 0;
@@ -874,38 +934,43 @@ p {
     padding: 24px;
   }
   .footer-grid {
-  text-align: center;
-}
+    text-align: center;
+  }
 
-.footer-grid > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .footer-grid > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.footer-grid > div:nth-child(2) {
-  align-items: center;
-}
+  .footer-grid > div:nth-child(2) {
+    align-items: center;
+  }
 
-.footer-logo {
-  margin-inline: auto;
-}
+  .footer-logo {
+    margin-inline: auto;
+  }
 
-.footer-grid p {
-  margin-inline: auto;
-}
+  .footer-grid p {
+    margin-inline: auto;
+  }
 
-.socials {
-  justify-content: center;
-}
+  .socials {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
   h1 {
-    font-size: clamp(2.6rem, 13vw, 3.5rem);
+    font-size: clamp(2.6rem, 12vw, 3.5rem);
   }
   h2 {
     font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+  .hero-visual,
+  .about-visual {
+    width: 100%;
+    max-width: none;
   }
   .hero-actions {
     align-items: stretch;
@@ -925,6 +990,14 @@ p {
   }
   .section-heading {
     margin-bottom: 36px;
+  }
+  .back-to-top {
+    right: 12px;
+    bottom: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    opacity: 0.85;
   }
 }
 
