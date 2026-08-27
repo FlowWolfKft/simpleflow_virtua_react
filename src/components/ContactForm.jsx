@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../lib/supabase";
 
 const initial = {
   name: "",
@@ -12,6 +13,7 @@ const initial = {
 export default function ContactForm() {
   const [form, setForm] = useState(initial);
   const [status, setStatus] = useState("");
+const [isSubmitting, setIsSubmitting] = useState(false);
 
   const update = (event) => {
     const { name, value, type, checked } = event.target;
@@ -21,23 +23,63 @@ export default function ContactForm() {
     }));
   };
 
-  const submit = (event) => {
-    event.preventDefault();
-    if (
-      !form.name.trim() ||
-      !form.email.trim() ||
-      !form.message.trim() ||
-      !form.gdpr
-    ) {
-      setStatus(
-        "Kérlek, töltsd ki a kötelező mezőket, majd fogadd el az Adatkezelési Tájékoztatót.",
-      );
-      return;
-    }
+  const submit = async (event) => {
+  event.preventDefault();
+  setStatus("");
+
+  if (
+    !form.name.trim() ||
+    !form.email.trim() ||
+    !form.message.trim() ||
+    !form.gdpr
+  ) {
     setStatus(
-      "Az űrlap felülete elkészült. Az üzenetküldést a következő lépésben kötjük össze a Supabase rendszerrel.",
+      "Kérlek, töltsd ki a kötelező mezőket, majd fogadd el az Adatkezelési Tájékoztatót.",
     );
-  };
+    return;
+  }
+  const validEmail =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+
+if (!validEmail) {
+  setStatus("Kérlek, adj meg egy érvényes e-mail-címet.");
+  return;
+}
+
+  setIsSubmitting(true);
+
+  try {
+    const { data, error } = await supabase.functions.invoke(
+  "contact-notification",
+  {
+    body: {
+      name: form.name.trim(),
+      company: form.company.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      message: form.message.trim(),
+      gdpr: form.gdpr,
+    },
+  },
+);
+
+if (error || !data?.success) {
+  throw error || new Error("A küldés sikertelen.");
+}
+
+    setForm(initial);
+    setStatus(
+      "Köszönöm az üzeneted! Hamarosan felveszem Veled a kapcsolatot.",
+    );
+  } catch (error) {
+    console.error("Supabase form submission error:", error);
+    setStatus(
+      "Az üzenetet most nem sikerült elküldeni. Kérlek, próbáld meg később.",
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <form className="contact-form" onSubmit={submit} noValidate>
@@ -111,9 +153,13 @@ export default function ContactForm() {
           .
         </span>
       </label>
-      <button className="button" type="submit">
-        Üzenet elküldése
-      </button>
+      <button
+  className="button"
+  type="submit"
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Küldés..." : "Üzenet elküldése"}
+</button>
       {status && (
         <p className="form-status" role="status">
           {status}
